@@ -1,0 +1,48 @@
+INSTRUCCIONES DE USO Y EXPLICACIÓN DEL PROYECTO DE SIMULACIÓN
+
+1. DESCRIPCIÓN GENERAL DEL PROYECTO
+Este proyecto simula cómo funciona el almacén de una tienda de materiales de construcción (basado en el modelo de Construrama / Cemex). 
+
+El objetivo principal es responder a la pregunta: ¿Cuándo y cuánto cemento debemos pedir para que no nos falte, pero tampoco gastemos de más en guardarlo?
+
+Para lograrlo, el programa recrea el día a día del negocio en la computadora. No utiliza números fijos, sino que incluye el factor de "incertidumbre" o aleatoriedad de la vida real. Por ejemplo:
+- Los clientes no siempre llegan a la misma hora ni compran la misma cantidad de cemento.
+- El proveedor (Cemex) no siempre tarda exactamente el mismo tiempo en entregar el pedido.
+
+Al simular esto por varios meses (o años), la aplicación nos permite ver qué pasaría si cambiamos nuestras reglas de inventario (cuánto pedir y cuándo hacerlo) y nos recomienda la mejor opción para ahorrar dinero y mantener un buen nivel de servicio.
+
+2. REQUISITOS PREVIOS
+Para poder ejecutar este proyecto, es necesario tener instalado Python en la computadora.
+Además, el simulador utiliza herramientas que ayudan a crear la interfaz gráfica y realizar cálculos. Para instalarlas, debe abrir la Terminal (en Mac/Linux) o el Símbolo del sistema (CMD en Windows), asegurarse de estar en la carpeta del proyecto y ejecutar el siguiente comando:
+
+pip install -r requirements.txt
+
+(Nota: En algunos sistemas operativos como Mac, puede que necesite escribir "pip3" en lugar de "pip").
+
+3. CÓMO EJECUTAR LA APLICACIÓN
+Este proyecto cuenta con una interfaz gráfica amigable creada con Streamlit. Para abrir la aplicación, siga estos pasos:
+
+Paso 1: Abra la Terminal o consola de comandos.
+Paso 2: Navegue hasta la carpeta donde se encuentra guardado este proyecto.
+Paso 3: Escriba y ejecute el siguiente comando:
+
+python -m streamlit run app.py
+
+(De nuevo, si está en Mac, utilice "python3" en lugar de "python").
+
+Una vez ejecutado, se abrirá automáticamente una ventana en su navegador web con la aplicación.
+
+4. CÓMO UTILIZAR LA APLICACIÓN
+Una vez dentro de la página web que se abrió, el funcionamiento es muy sencillo:
+
+1. Pantalla de Configuración: Aquí podrá ver los valores de inventario y demanda del negocio. Puede dejar los valores que vienen por defecto y dar clic en el botón inferior para "Iniciar simulación".
+
+2. Pantalla de Resultados: La aplicación procesará la simulación y le mostrará un resumen gráfico del "diente de sierra" (cómo sube y baja el inventario con el paso del tiempo). Podrá observar indicadores como cuántas ventas se perdieron y cuál fue el nivel de servicio. También podrá exportar el historial de eventos en un archivo CSV.
+
+3. Análisis Avanzado (Semana 4): En la pantalla de Resultados, encontrará un botón azul llamado "Ejecutar DOE (Semana 4)". 
+
+Al presionarlo, el programa realizará lo que llamamos un "Diseño de Experimentos". Es decir, probará internamente 4 combinaciones distintas de políticas de inventario. Evaluará el escenario base frente a otros donde pedimos más cantidad o pedimos antes de tiempo.
+Al final, le mostrará una tabla comparativa con los costos y resaltará cuál de las políticas es la opción más económica y eficiente.
+
+---
+Con esto, el programa cumple todos los requisitos solicitados en los entregables de simulación, incluyendo la generación de números aleatorios, análisis estadístico y diseño de experimentos.
