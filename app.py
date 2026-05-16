@@ -67,7 +67,7 @@ if st.session_state.estado_app == 'formulario':
         cant_reabasto = c4.number_input("CANTIDAD_REABASTECIMIENTO", min_value=10, value=5000, step=100, help="Cantidad a solicitar al reordenar (ton).")
         
         # AJUSTE CRITICO: Tamaño de pedido por cliente debe ser mucho menor al stock inicial
-        tamano_pedido = c5.number_input("TAMANO_PEDIDO (Media)", min_value=1, value=150, step=10, help="Tamaño de pedido promedio por cliente (Estocástico).")
+        tamano_pedido = c5.number_input("TAMANO_PEDIDO (Media, ton)", min_value=1, value=150, step=10, help="Tamaño de pedido promedio por cliente en toneladas (Estocástico).")
         
         st.divider()
         
@@ -196,20 +196,20 @@ elif st.session_state.estado_app == 'resultados':
     kpi1, kpi2, kpi3, kpi4 = st.columns(4)
     with kpi1:
         st.markdown('<div class="stCard">', unsafe_allow_html=True)
-        st.metric("Nivel de servicio", f"{kpis['Nivel Servicio']}%")
+        st.metric("Nivel de servicio (%)", f"{kpis['Nivel Servicio']}%")
         st.markdown('</div>', unsafe_allow_html=True)
     with kpi2:
         st.markdown('<div class="stCard">', unsafe_allow_html=True)
-        st.metric("Rupturas de stock", f"{kpis['Ventas Perdidas']}", "Eventos sin surtir")
+        st.metric("Rupturas de stock (eventos)", f"{kpis['Ventas Perdidas']}", "Solicitudes sin surtir")
         st.markdown('</div>', unsafe_allow_html=True)
     with kpi3:
         st.markdown('<div class="stCard">', unsafe_allow_html=True)
         inv_promedio = int(st.session_state.df_historial['Inventario'].mean())
-        st.metric("Inventario promedio", f"{inv_promedio} ton")
+        st.metric("Inventario promedio (ton)", f"{inv_promedio} ton")
         st.markdown('</div>', unsafe_allow_html=True)
     with kpi4:
         st.markdown('<div class="stCard">', unsafe_allow_html=True)
-        st.metric("Pedidos atendidos", f"{kpis['Pedidos Surtidos']}")
+        st.metric("Pedidos atendidos (eventos)", f"{kpis['Pedidos Surtidos']}")
         st.markdown('</div>', unsafe_allow_html=True)
 
     # Gráfico y Hallazgos
@@ -239,9 +239,9 @@ elif st.session_state.estado_app == 'resultados':
         
         st.divider()
         st.markdown("### Resumen del escenario")
-        st.markdown(f"- **Órdenes al proveedor:** {kpis['Ordenes Proveedor']}")
-        st.markdown(f"- **Unidades despachadas:** {kpis['Unidades Vendidas']}")
-        st.markdown(f"- **Registros BD:** {len(st.session_state.df_eventos)}")
+        st.markdown(f"- **Órdenes al proveedor (eventos):** {kpis['Ordenes Proveedor']}")
+        st.markdown(f"- **Unidades despachadas (ton):** {kpis['Unidades Vendidas']}")
+        st.markdown(f"- **Registros BD (eventos):** {len(st.session_state.df_eventos)}")
         st.markdown('</div>', unsafe_allow_html=True)
         
     # Botones inferiores
@@ -274,15 +274,24 @@ elif st.session_state.estado_app == 'doe':
     with col_1:
         st.markdown('<div class="stCard">', unsafe_allow_html=True)
         st.subheader("Resultados Comparativos")
-        st.dataframe(df_doe, use_container_width=True)
+        df_doe_display = df_doe.rename(columns={
+            "ROP": "ROP (ton)",
+            "Q": "Q (ton)",
+            "Nivel_Servicio": "Nivel Servicio (%)",
+            "Ventas_Perdidas": "Ventas Perdidas (eventos)",
+            "Costo_Medio": "Costo Medio ($)",
+            "IC_Inf": "IC 95% Inf ($)",
+            "IC_Sup": "IC 95% Sup ($)"
+        })
+        st.dataframe(df_doe_display, use_container_width=True)
         st.markdown('</div>', unsafe_allow_html=True)
         
     with col_2:
         st.markdown('<div class="stCard">', unsafe_allow_html=True)
         mejor_escenario = df_doe.loc[df_doe['Costo_Medio'].idxmin()]
         st.success(f"**Escenario Óptimo:**\n\n{mejor_escenario['Escenario']}")
-        st.markdown(f"**Costo Medio:** ${mejor_escenario['Costo_Medio']:,.2f}")
-        st.markdown(f"**Nivel Servicio:** {mejor_escenario['Nivel_Servicio']}%")
+        st.markdown(f"**Costo Medio ($):** ${mejor_escenario['Costo_Medio']:,.2f}")
+        st.markdown(f"**Nivel Servicio (%):** {mejor_escenario['Nivel_Servicio']}%")
         st.markdown('</div>', unsafe_allow_html=True)
         
     st.markdown("<br>", unsafe_allow_html=True)

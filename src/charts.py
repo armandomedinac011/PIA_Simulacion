@@ -33,12 +33,12 @@ def graficar_evolucion_inventario(df_historial, punto_reorden):
         paper_bgcolor='white',
         margin=dict(l=20, r=20, t=20, b=20),
         xaxis=dict(
-            title='Días de Simulación',
+            title='Tiempo simulado (días)',
             showgrid=True, 
             gridcolor='#E8EDF5'
         ),
         yaxis=dict(
-            title='Unidades (ton)',
+            title='Inventario disponible (ton)',
             showgrid=True, 
             gridcolor='#E8EDF5',
             rangemode='tozero'

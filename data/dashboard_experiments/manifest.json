@@ -1,0 +1,20 @@
+{
+  "created_at": "2026-05-15T19:18:03",
+  "profile": "compact",
+  "replicas": 3,
+  "seed": 20260515,
+  "scenario_count": 256,
+  "run_count": 768,
+  "events_saved": true,
+  "cost_assumptions": {
+    "order_cost": 1000.0,
+    "shortage_cost_per_lost_order": 500.0,
+    "lost_unit_cost": 8.0,
+    "holding_cost_per_unit_day": 0.15
+  },
+  "files": {
+    "scenario_runs": "scenario_runs.csv",
+    "scenario_summary": "scenario_summary.csv",
+    "scenario_events": "scenario_events.csv"
+  }
+}
